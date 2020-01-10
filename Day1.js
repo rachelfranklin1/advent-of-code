@@ -99,17 +99,42 @@ const str = `120847
 126340
 143660`;
 
-function calculateTotalFuel(str) {
-  const moduleMasses = str.split("\n");
-  const dividedByThree = moduleMasses.map(item => {
+// function calculateTotalFuel(str) {
+//   const moduleMasses = str.split("\n");
+//   const dividedByThree = moduleMasses.map(item => {
+//     return Math.floor(item / 3) - 2;
+//   });
+//   const TotalFuelRequired = dividedByThree.reduce(
+//     (accumulator, currentValue) => {
+//       return accumulator + currentValue;
+//     }
+//   ); // this is adding up all of the entries in the dividedByThree array
+//   return TotalFuelRequired;
+// }
+
+// calculateTotalFuel(str);
+
+// need to work out how much fuel is needed to carry the fuel required for the module masses - don't stop until the fuel require is negative
+function accountForFuelMass(string) {
+  const moduleMasses = string.split("\n");
+  const fuelRequiredForEachModule = moduleMasses.map(item => {
     return Math.floor(item / 3) - 2;
   });
-  const TotalFuelRequired = dividedByThree.reduce(
-    (accumulator, currentValue) => {
-      return accumulator + currentValue;
+
+  const arrayOfFuelValues = fuelRequiredForEachModule.map(fuelMass => {
+    let arrayOfFuelsToSum = [];
+
+    while (fuelMass > 0) {
+      arrayOfFuelsToSum.push(fuelMass);
+      fuelMass = Math.floor(fuelMass / 3) - 2;
     }
-  );
-  return TotalFuelRequired;
+    return arrayOfFuelsToSum.reduce((a, b) => {
+      return a + b;
+    });
+  });
+  return arrayOfFuelValues.reduce((a, b) => {
+    return a + b;
+  });
 }
 
-calculateTotalFuel(str);
+const totalSumOfFuelRequired = accountForFuelMass(str);

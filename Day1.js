@@ -99,16 +99,17 @@ const str = `120847
 126340
 143660`;
 
-const moduleMasses = str.split("\n");
+function calculateTotalFuel(str) {
+  const moduleMasses = str.split("\n");
+  const dividedByThree = moduleMasses.map(item => {
+    return Math.floor(item / 3) - 2;
+  });
+  const TotalFuelRequired = dividedByThree.reduce(
+    (accumulator, currentValue) => {
+      return accumulator + currentValue;
+    }
+  );
+  return TotalFuelRequired;
+}
 
-// iterate over every entry in the array and / 3
-
-const dividedByThree = moduleMasses.map(item => {
-  return Math.floor(item / 3) - 2;
-});
-
-const TotalFuelRequired = dividedByThree.reduce((accumulator, currentValue) => {
-  return accumulator + currentValue;
-});
-
-console.log("TotalFuelRequired", TotalFuelRequired);
+calculateTotalFuel(str);

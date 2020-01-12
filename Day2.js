@@ -186,6 +186,3 @@ function processIntCodes(data) {
 }
 
 console.log(processIntCodes(intCodes));
-
-// to refactor / optimise, could use a switch statement rather than if statements
-// could seperate the add / multiplying into its own functions & call in the main body

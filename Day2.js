@@ -179,13 +179,25 @@ function processIntCodes(data) {
     } else if (data[i] === 99) {
       return data[0];
     } else {
-      console.log("encountered weird intcode:", data[i]);
+      console.error("encountered unknown intcode:", data[i]);
     }
   }
   return data;
 }
 
-console.log(processIntCodes(intCodes));
-
-// part 2: you need to determine what pair of inputs produces the output 19690720
-// difference is between the output with inputs 12 & 2 and 0, 0 = 3888002
+function inputFilter(data) {
+  for (let i = 0; i <= 99; i++) {
+    for (let j = 0; j <= 99; j++) {
+      const codesToProcess = [...data];
+      const noun = i;
+      const verb = j;
+      data[1] = noun;
+      data[2] = verb;
+      const output = processIntCodes(codesToProcess);
+      if (output === 19690720) {
+        const sum = 100 * noun + verb;
+        return sum;
+      }
+    }
+  }
+}

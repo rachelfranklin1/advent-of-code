@@ -665,7 +665,8 @@ function compareEntries() {
     for (j = 0; j < secondCoordinates.length; j++) {
       if (firstCoordinates[i][0] === secondCoordinates[j][0]) {
         if (firstCoordinates[i][1] === secondCoordinates[j][1]) {
-          crossoverArr.push(firstCoordinates[i]);
+          crossoverArr.push(firstCoordinates[i]); // this nest if could be improved
+          // could maybe filter for all of the same position[0] then filter for matching position[1]
         }
       }
     }
@@ -673,12 +674,12 @@ function compareEntries() {
   return crossoverArr;
 }
 
-function findManhattenDistance() {
+function findMinManhattenDistance() {
   const intersections = compareEntries();
-  const distances = intersections.map(entry => {
-    return distances.push(entry[0] + entry[1]);
+  const distances = intersections.map(plot => {
+    return plot[0] + plot[1];
   });
   return Math.min(...distances);
 }
 
-console.log(findManhattenDistance());
+console.log(findMinManhattenDistance());
